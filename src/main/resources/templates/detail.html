@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <header th:insert="base :: header"></header>
+    <style>
+        .jumbotron{
+            background-color: rgba(12, 38, 23, 0.59);
+        }
+        body{
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+<nav th:replace="base :: navlinks"></nav>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Job Details</h1><br/>
+        <h4 >  <span th:text="${job.title}"></span>  </h4>
+        <hr>
+        <p>
+            By  <span th:text="  ${job.author}"></span>  || posted on <span th:text="  ${#dates.format(job.postedDate, 'dd-MMM-yyyy' )}"></span>  ||
+            Contact me:  <span th:text="  ${job.phoneNumber}"></span>
+            <br/>
+        </p>
+
+        <h5> Job Description</h5>
+        <p>
+            <span th:text="${job.description}"></span><br/>
+
+        </p>
+
+        <a href= "/login" class="btn btn-success" role="button">Post Job</a>
+        <a class="btn btn-success" href="/listJobs" role="button">job List</a>
+        <a  class="btn btn-danger" th:href="@{/delete/{id}(id=${job.id})}" role = "button">Delete Job</a>
+
+
+    </div>
+</div>
+
+<footer th:insert="base :: footer"></footer>
+<div th:insert="base :: scripts"></div>
+</body>
+</html>

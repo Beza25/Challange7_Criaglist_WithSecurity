@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <header th:insert="base :: header"></header>
+    <style>
+
+        .jumbotron {
+            background-color: rgba(255 255 255 0.6);
+        }
+
+    </style>
+</head>
+<body>
+<nav th:replace="base :: navlinks"></nav>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Login Form</h1>
+        <div th:if="${param.error}">
+            Invalid username or password
+        </div>
+        <div th:if="${param.logout}">
+            You have been logged out
+        </div>
+        <div class="card" style="width: 18rem;">
+            <form th:action="@{/login}" method="post">
+
+                <div class="container">
+                    <label>Username</label>
+                    <input type="text" placeholder="Enter Username" name="username">
+
+                    <label>Password</label>
+                    <input type="password" placeholder="Enter Password" name="password">
+                    <br/> <br/>
+
+                    <button type="submit" class="btn btn-danger">Sign in</button>
+
+                    <a href= "/register" class="btn btn-success" role="button">Register </a>
+
+                </div>
+
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<footer th:insert="base :: footer"></footer>
+<div th:insert="base :: scripts"></div>
+</body>
+</html>

@@ -3,8 +3,11 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,16 +15,68 @@ import java.util.Date;
 public class HomeController {
     @Autowired
     JobsRepository jobsRepository;
-    @RequestMapping("/")
-    public String homePage(){
-        return "home";
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @PostConstruct
+    public void load() {
+        System.out.println(roleRepository.findAll());
+
+        if (!roleRepository.findAll().iterator().hasNext()){
+            roleRepository.save(new Role("USER"));
+            roleRepository.save(new Role("ADMIN"));
+        }
+        System.out.println(roleRepository.findAll());
+
     }
-    @RequestMapping("/listJobs")
-    public String jobsList(Model model){
-        model.addAttribute("jobs",jobsRepository.findAll());
+
+    @GetMapping("/register")
+    public String showRegistrationPage(Model model) {
+        model.addAttribute("user", new User());
+        return "registration";
+    }
+
+    @PostMapping("/register")
+    public String processRegistrationPage(@Valid
+                                          @ModelAttribute("user") User user, BindingResult result,
+                                          Model model) {
+        model.addAttribute("user", user);
+        if (result.hasErrors())
+        {
+            return "registration";
+        }
+        else
+        {
+            userService.saveUser(user);
+            model.addAttribute("message", "User Account Created");
+        }
         return "listJobs";
     }
-    @GetMapping("/postJob")
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @Autowired
+    UserRepository userRepository;
+
+//    @RequestMapping("/")
+//    public String homePage(){
+//        return "listJobs";
+//    }
+    @RequestMapping("/")
+    public String listJobs(Model model) {
+        model.addAttribute("courses", jobsRepository.findAll());
+        if (userService.getUser() != null) {
+            model.addAttribute("user_id", userService.getUser().getId());
+        }
+        return "listJobs";
+    }
+    @GetMapping ("/postJob")
     public String postJob(Model model){
         model.addAttribute("job", new Jobs());
         return "jobForm";
@@ -31,25 +86,20 @@ public class HomeController {
                              //(name="postedDate")
                              @RequestParam String postedDate){
         String pattern = "yyyy-MM-dd";
-        System.out.println("before: " + postedDate);
         try{
-            String formatedDate = postedDate;
+            String formattedDate = postedDate;
             SimpleDateFormat format = new SimpleDateFormat(pattern);
-            Date realDate = format.parse(formatedDate);
+            Date realDate = format.parse(formattedDate);
             job.setPostedDate(realDate);
-            System.out.println("after: " + realDate);
         }catch(java.text.ParseException e){
             e.printStackTrace();
         }
         jobsRepository.save(job);
-        return "listJobs";
+        return "redirect:/listJobs";
     }
 
-
-
-
     @PostMapping("/processearch")
-    public String searchResult(@RequestParam(name="serach") String search, Model model){
+    public String searchResult(@RequestParam(name="search") String search, Model model){
         model.addAttribute("jobs", jobsRepository.findByTitleContainingIgnoreCase(search));
         return "searchlist";
     }
@@ -58,7 +108,7 @@ public class HomeController {
     @RequestMapping("/detail/{id}")
     public String showFligtInfo(@PathVariable("id") long idDetail, Model model){
         model.addAttribute("job", jobsRepository.findById(idDetail).get());
-        return "show";
+        return "detail";
     }
     @RequestMapping("/update/{id}")
     public String updateFlight(@PathVariable("id") long id, Model model){
@@ -68,9 +118,8 @@ public class HomeController {
     @RequestMapping("/delete/{id}")
     public String deleteFlight(@PathVariable ("id") long id){
         jobsRepository.deleteById(id);
-        return "redirect:/";
+        return "redirect:/listJobs";
     }
-
 
 
 }
