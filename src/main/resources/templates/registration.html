@@ -15,44 +15,101 @@
 <div class="container">
     <div class="jumbotron">
         <h1 class="display-4">New User Registration</h1>
+
+
         <form autocomplete="off"
               action="#"
               th:action="@{/register}"
               th:object="${user}" method="post">
-            First Name <mark><strong>
-    <span th:if="${#fields.hasErrors('firstName')}"
-          th:errors="*{firstName}">First Name Error</span></strong></mark>
-            <input type="text" id="firstName" placeholder="First Name"
-                   th:field="*{firstName}"/><br>
 
-            Last Name <mark><strong>
-    <span th:if="${#fields.hasErrors('lastName')}"
-          th:errors="*{lastName}">Last Name Error</span></strong></mark>
-            <input type="text" id="lastName" placeholder="Last Name"
-                   th:field="*{lastName}"/><br>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label>First Name</label>
+                    <span th:if="${#fields.hasErrors('firstName')}"
+                          th:errors="*{firstName}">First Name Error</span>
+                    <input type="text" class="form-control" id="firstName" th:field="*{firstName}"/><br>
+                </div>
+            </div>
 
-            Email <mark><strong>
-    <span th:if="${#fields.hasErrors('email')}"
-          th:errors="*{email}">Email Error</span></strong></mark>
-            <input type="text" id="email" placeholder="Email"
-                   th:field="*{email}"/><br>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label>Last Name</label>
+                    <span th:if="${#fields.hasErrors('lastName')}"
+                          th:errors="*{lastName}">Last Name Error</span>
+                    <input type="text" class="form-control" id="lastName"  th:field="*{lastName}"/><br>
+                </div>
+            </div>
 
-            Username <mark><strong>
-    <span th:if="${#fields.hasErrors('username')}"
-          th:errors="*{username}">Username Error</span></strong></mark>
-            <input type="text" id="username" placeholder="Username"
-                   th:field="*{username}"/><br>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <span th:if="${#fields.hasErrors('email')}"
+                          th:errors="*{email}">Email Error</span>
+                    <input type="email" class="form-control" id="inputEmail4"  th:field="*{email}"/><br>
+                </div>
+            </div>
 
-            Password <mark><strong>
-    <span th:if="${#fields.hasErrors('password')}"
-          th:errors="*{password}">Password Error</span></strong></mark>
-            <input type="password" id="password" placeholder="Password"
-                   th:field="*{password}"/><br>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label>User Name</label>
+                    <span th:if="${#fields.hasErrors('username')}"
+                          th:errors="*{username}">Username Error</span>
+                    <input type="text" class="form-control" id="lastName"  th:field="*{username}"/><br>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <span th:if="${#fields.hasErrors('password')}"
+                          th:errors="*{password}">Password Error</span>
+                    <input type="password" class="form-control" id="inputPassword4"  th:field="*{password}"/><br>
+                </div>
+            </div>
             <br/><br/>
 
             <button type="submit" class="btn btn-success">Submit</button>
-
         </form>
+
+
+<!--        <form autocomplete="off"-->
+<!--              action="#"-->
+<!--              th:action="@{/register}"-->
+<!--              th:object="${user}" method="post">-->
+<!--            First Name <mark><strong>-->
+<!--    <span th:if="${#fields.hasErrors('firstName')}"-->
+<!--          th:errors="*{firstName}">First Name Error</span></strong></mark>-->
+<!--            <input type="text" id="firstName" placeholder="First Name"-->
+<!--                   th:field="*{firstName}"/><br>-->
+
+<!--            Last Name <mark><strong>-->
+<!--    <span th:if="${#fields.hasErrors('lastName')}"-->
+<!--          th:errors="*{lastName}">Last Name Error</span></strong></mark>-->
+<!--            <input type="text" id="lastName" placeholder="Last Name"-->
+<!--                   th:field="*{lastName}"/><br>-->
+
+<!--            Email <mark><strong>-->
+<!--    <span th:if="${#fields.hasErrors('email')}"-->
+<!--          th:errors="*{email}">Email Error</span></strong></mark>-->
+<!--            <input type="text" id="email" placeholder="Email"-->
+<!--                   th:field="*{email}"/><br>-->
+
+<!--            Username <mark><strong>-->
+<!--    <span th:if="${#fields.hasErrors('username')}"-->
+<!--          th:errors="*{username}">Username Error</span></strong></mark>-->
+<!--            <input type="text" id="username" placeholder="Username"-->
+<!--                   th:field="*{username}"/><br>-->
+
+<!--            Password <mark><strong>-->
+<!--    <span th:if="${#fields.hasErrors('password')}"-->
+<!--          th:errors="*{password}">Password Error</span></strong></mark>-->
+<!--            <input type="password" id="password" placeholder="Password"-->
+<!--                   th:field="*{password}"/><br>-->
+<!--            <br/><br/>-->
+
+<!--            <button type="submit" class="btn btn-success">Submit</button>-->
+
+<!--        </form>-->
 
     </div>
 </div>
