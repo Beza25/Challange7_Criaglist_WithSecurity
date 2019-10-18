@@ -70,7 +70,7 @@ public class HomeController {
 //    }
     @RequestMapping("/")
     public String listJobs(Model model) {
-        model.addAttribute("courses", jobsRepository.findAll());
+        model.addAttribute("jobs", jobsRepository.findAll());
         if (userService.getUser() != null) {
             model.addAttribute("user_id", userService.getUser().getId());
         }
@@ -94,9 +94,14 @@ public class HomeController {
         }catch(java.text.ParseException e){
             e.printStackTrace();
         }
+
+        //set the currently user to this field
+       job.setUser(userService.getUser());
         jobsRepository.save(job);
-        return "redirect:/listJobs";
+        return "redirect:/";
     }
+
+
 
     @PostMapping("/processearch")
     public String searchResult(@RequestParam(name="search") String search, Model model){
@@ -106,19 +111,19 @@ public class HomeController {
 
 
     @RequestMapping("/detail/{id}")
-    public String showFligtInfo(@PathVariable("id") long idDetail, Model model){
+    public String showJob(@PathVariable("id") long idDetail, Model model){
         model.addAttribute("job", jobsRepository.findById(idDetail).get());
         return "detail";
     }
     @RequestMapping("/update/{id}")
-    public String updateFlight(@PathVariable("id") long id, Model model){
+    public String updateJob(@PathVariable("id") long id, Model model){
         model.addAttribute("job", jobsRepository.findById(id).get());
         return "jobForm";
     }
     @RequestMapping("/delete/{id}")
-    public String deleteFlight(@PathVariable ("id") long id){
+    public String deleteJob(@PathVariable ("id") long id){
         jobsRepository.deleteById(id);
-        return "redirect:/listJobs";
+        return "redirect:/";
     }
 
 

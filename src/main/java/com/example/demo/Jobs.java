@@ -22,7 +22,7 @@ public class Jobs {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User user;
+    private User user ;
 
     public Jobs(){
 

@@ -37,7 +37,8 @@
 
             <span th:if="${user_id == job.user.id}">
                 <a class="btn btn-outline-primary" th:href="@{/update/{id}(id=${job.id})}" role="button">Update</a>
-                <a class="btn btn-outline-danger" th:href="@{/delete/{id}(id=${job.id})}" role="button">Delete</a></span>
+                <a class="btn btn-outline-danger" th:href="@{/delete/{id}(id=${job.id})}" role="button">Delete</a>
+            </span>
             <br/><br/>
 
         </form>
