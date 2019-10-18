@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <header th:insert="base :: header"></header>
+    <style>
+        .jumbotron{
+            background-color: rgba(63, 191, 84, 0.3);
+        }
+
+    </style>
+</head>
+<body>
+<nav th:replace="base :: navlinks"></nav>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Job Form</h1><br/>
+        <form th:action="@{/processJob}" th:object="${job}" method = "post">
+            <div class="form-row">
+                <div class="col">
+                    <label >Title</label>
+                    <input type="text" th:field="*{title}"  class="form-control" placeholder="Job Title"/>
+                    <span th:if="${#fields.hasErrors('title')}"
+                          th:errors="*{title}"></span>
+                </div>
+                <div class="col">
+                    <label>Author</label>
+                    <input type="text" th:field="*{author}" class="form-control" placeholder="Author"/>
+                    <span th:if="${#fields.hasErrors('author')}"
+                          th:errors="*{author}"></span>
+                    <br/>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <label >Phone Number</label>
+                    <input type="text" th:field="*{phoneNumber}"  class="form-control" placeholder="phone number"/>
+                    <span th:if="${#fields.hasErrors('phoneNumber')}"
+                          th:errors="*{phoneNumber}"></span>
+                </div>
+                <div class="col">
+                    <label >Posted Date</label>
+                    <input type="date" th:field="*{postedDate}" class="form-control" placeholder="posted date"/>
+                    <span th:if="${#fields.hasErrors('postedDate')}"
+                          th:errors="*{postedDate}"></span>
+                    <br/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Job Description</label>
+                <textarea class="form-control" th:field="*{description}" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <span th:if="${#fields.hasErrors('description')}"
+                      th:errors="*{description}"></span>
+                <br/>
+            </div>
+
+            <button type="submit" class="btn btn-success">Post Job</button>
+        </form>
+
+    </div>
+</div>
+
+<footer th:insert="base :: footer"></footer>
+<div th:insert="base :: scripts"></div>
+</body>
+</html>

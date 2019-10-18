@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <header th:insert="base :: header"></header>
+    <style>
+
+        .jumbotron {
+            background-color: rgba(255 255 255 0.6);
+        }
+
+    </style>
+</head>
+<body>
+<nav th:replace="base :: navlinks"></nav>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Find Your Freelancer</h1><br/>
+        <a href= "/postJob" class="btn btn-success" role="button">Post Job</a>
+        <a href= "/listJobs" class="btn btn-success" role="button">List Jobs</a>
+
+    </div>
+</div>
+
+<footer th:insert="base :: footer"></footer>
+<div th:insert="base :: scripts"></div>
+</body>
+</html>

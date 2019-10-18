@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <header th:insert="base :: header"></header>
+    <style>
+
+        .jumbotron {
+            background-color: rgba(63, 191, 84, 0.3);
+        }
+
+    </style>
+</head>
+<body>
+<nav th:replace="base :: navlinks"></nav>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4" > Jobs List</h1><br/>
+        <a href="/postJob" class="btn btn-outline-primary" role="button">Post a Job</a>
+
+        <table class = "table" >
+            <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Posted Date</th>
+                <th scope="col">Author</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Description</th>
+                <td scope="action">Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="job: ${jobs}">
+                <td th:text="${job.title}" ></td>
+                <td th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></td>
+                <td th:text="${job.author}"></td>
+                <td th:text="${job.phoneNumber}"></td>
+                <td th:text="${job.description}"></td>
+                <td>
+                    <a class="btn btn-outline-primary"  th:href="@{/update/{id}(id=${job.id})}" role="button"  >Update</a>
+                    <a class="btn btn-outline-success" th:href="@{/detail/{id}(id=${job.id})}" role="button"   >Details</a>
+                    <a class="btn btn-outline-danger" th:href="@{/delete/{id}(id=${job.id})}" role="button"  >Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer th:insert="base :: footer"></footer>
+<div th:insert="base :: scripts"></div>
+</body>
+</html>
