@@ -16,7 +16,7 @@
 <nav th:replace="base :: navlinks"></nav>
 <div class="container">
     <div class="jumbotron">
-        <h1 class="display-4">Job Details</h1><br/>
+        <h1 class="display-4"> Job Details</h1><br/>
         <h4 >  <span th:text="${job.title}"></span>  </h4>
         <hr>
         <p>
@@ -32,8 +32,8 @@
         </p>
 
         <a href= "/login" class="btn btn-success" role="button">Post Job</a>
-        <a class="btn btn-success" href="/listJobs" role="button">job List</a>
-        <a  class="btn btn-danger" th:href="@{/delete/{id}(id=${job.id})}" role = "button">Delete Job</a>
+        <a class="btn btn-success" href="/" role="button">job List</a>
+<!--        <a  class="btn btn-danger" th:href="@{/delete/{id}(id=${job.id})}" role = "button">Delete Job</a>-->
 
 
     </div>
